@@ -15,11 +15,14 @@ endif()
 # Apply a standard set of build settings that are configured in the
 # temporary build directory. This can be removed for applications that
 # need different build settings.
+add_compile_definitions(UNICODE _UNICODE)
+
 function(apply_standard_settings TARGET)
   target_compile_features(${TARGET} PUBLIC cxx_std_17)
   target_compile_options(${TARGET} PRIVATE /W4 /WX /wd"4100")
   target_compile_options(${TARGET} PRIVATE /EHsc)
   target_link_options(${TARGET} PRIVATE /SUBSYSTEM:WINDOWS)
+  target_compile_definitions(${TARGET} PRIVATE UNICODE _UNICODE)
   if(DEFINED MSVC_RUNTIME_LIBRARY)
     set_property(TARGET ${TARGET} PROPERTY
       MSVC_RUNTIME_LIBRARY "${MSVC_RUNTIME_LIBRARY}")
